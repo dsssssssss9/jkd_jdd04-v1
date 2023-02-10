@@ -23,6 +23,7 @@ let INC_FWD_SPEED = 0
 let ALL_STOP = 0
 let COMMAND = 0
 makerbit.connectIrReceiver(DigitalPin.P16, IrProtocol.Keyestudio)
+Set_Button_Codes_Here()
 basic.showIcon(IconNames.Diamond)
 basic.pause(1000)
 let FWD = true
@@ -37,19 +38,20 @@ COMMAND = 0
 basic.clearScreen()
 led.enable(true)
 basic.forever(function () {
+    let MENU_BUTTON = 0
     if (COMMAND <= 0) {
     	
-    } else if (COMMAND == 10) {
+    } else if (COMMAND == RESET_SPEED) {
         FWD = true
         LEFT = FSPEED
         RIGHT = FSPEED
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, FSPEED)
-    } else if (COMMAND == 4) {
+    } else if (COMMAND == ALL_STOP) {
         maqueen.motorStop(maqueen.Motors.All)
         music.playTone(131, music.beat(BeatFraction.Half))
         basic.showIcon(IconNames.Chessboard)
         basic.clearScreen()
-    } else if (COMMAND == 12) {
+    } else if (COMMAND == INC_LEFT_TURN) {
         if (LEFT > TRIM) {
             LEFT += 0 - TRIM
         } else {
@@ -67,7 +69,7 @@ basic.forever(function () {
             maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, LEFT)
             maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, RIGHT)
         }
-    } else if (COMMAND == 1) {
+    } else if (COMMAND == INC_RIGHT_TURN) {
         if (RIGHT > TRIM) {
             RIGHT += 0 - TRIM
         } else {
@@ -85,7 +87,7 @@ basic.forever(function () {
             maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, LEFT)
             maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, RIGHT)
         }
-    } else if (COMMAND == 8) {
+    } else if (COMMAND == INC_SPEED) {
         FWD = true
         if (LEFT < SPDMAX) {
             LEFT += TRIM
@@ -99,13 +101,13 @@ basic.forever(function () {
         }
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, LEFT)
         maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, RIGHT)
-    } else if (COMMAND == 9) {
+    } else if (COMMAND == BACKWARDS) {
         FWD = false
         LEFT = FSPEED
         RIGHT = FSPEED
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, LEFT)
         maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, RIGHT)
-    } else if (COMMAND == 14) {
+    } else if (COMMAND == INC_SPEED) {
         if (LEFT < SPDMAX) {
             LEFT += TRIM
         } else {
@@ -123,7 +125,7 @@ basic.forever(function () {
             maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, LEFT)
             maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, RIGHT)
         }
-    } else if (COMMAND == 18) {
+    } else if (COMMAND == REDUCE_SPEED) {
         if (LEFT > TRIM) {
             LEFT += 0 - TRIM
         } else {
@@ -141,7 +143,7 @@ basic.forever(function () {
             maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, LEFT)
             maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, RIGHT)
         }
-    } else if (COMMAND == 17) {
+    } else if (COMMAND == MENU_BUTTON) {
         FWD = true
         LEFT = TSPEED
         RIGHT = TSPEED
