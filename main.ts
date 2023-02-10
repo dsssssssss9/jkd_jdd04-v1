@@ -8,10 +8,12 @@ function Set_Button_Codes_Here () {
     RESET_SPEED = 66
     INC_SPEED = 152
     REDUCE_SPEED = 56
+    MENU_BUTTON = 2
 }
 makerbit.onIrButton(IrButton.Any, IrButtonAction.Pressed, function () {
     COMMAND = makerbit.irButton()
 })
+let MENU_BUTTON = 0
 let REDUCE_SPEED = 0
 let INC_SPEED = 0
 let RESET_SPEED = 0
@@ -38,7 +40,6 @@ COMMAND = 0
 basic.clearScreen()
 led.enable(true)
 basic.forever(function () {
-    let MENU_BUTTON = 0
     if (COMMAND <= 0) {
     	
     } else if (COMMAND == RESET_SPEED) {
@@ -87,7 +88,7 @@ basic.forever(function () {
             maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, LEFT)
             maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, RIGHT)
         }
-    } else if (COMMAND == INC_SPEED) {
+    } else if (COMMAND == INC_FWD_SPEED) {
         FWD = true
         if (LEFT < SPDMAX) {
             LEFT += TRIM
